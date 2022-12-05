@@ -1,0 +1,62 @@
+﻿@model Shirel_Ferrera.Models.AirlinesModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Airline</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Styles/Airline.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/ViewScripts/Airline.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="upper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Airline Name</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    @foreach (var item in Model.Airlines)
+                    {
+                        <tr id="tr_@item.ID">
+                            <td>
+                                <input id="input_code_@item.ID" type="text" class="form-control" value="@item.Code" onblur="update('@item.ID')" tabindex="0" />
+                            <td>
+                                <input id="input_name_@item.ID" type="text" class="form-control" value="@item.AirlineName" onblur="update('@item.ID')" tabindex="0" />
+                            </td>
+                            <td>
+                                <input type="image" src="~/Images/Red_X.svg.png" height="20" width="20"onclick="DeleteRow('@item.ID')" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+
+        <div class="row-plus">
+            <input type="image" src="~/Images/istockphoto-691856112-170667a.jpg" height="70" width="70" value="Show Div" id="plusBtn" onclick="ShowDiv(this)" />
+        </div>
+        
+
+        <div id="myDiv" style="display:none" class="col-md-6 green-block">
+            <div class="row">
+                <input class="form-control" id="inputCode" type="text" value="" placeholder="Code">
+                <input class="form-control" id="inputName" type="text" value="" placeholder="AirlineName">
+                <button id="buttons"onclick="SaveRow()">
+                    <img src="~/Images/saveicon.png" alt="Save" />
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

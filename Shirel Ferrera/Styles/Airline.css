@@ -1,0 +1,58 @@
+﻿
+.container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.row-plus {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 60%;
+}
+
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+}
+
+    .row button {
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        opacity: 0.7;
+        transition: opacity 0.1s;
+    }
+
+        .row button:hover {
+            opacity: 1;
+            transition: opacity 0.1s;
+        }
+
+        .row button img {
+            width: 32px;
+        }
+
+tr td {
+    padding: 10px;
+}
+
+thead tr th {
+    text-align: center;
+    padding: 35px;
+}
+
+.green-block {
+    padding: 50px;
+    background-color: #99d093;
+    border-radius: 20px;
+}
+
+#inputCode, #inputName {
+    flex: 0.4;
+}
