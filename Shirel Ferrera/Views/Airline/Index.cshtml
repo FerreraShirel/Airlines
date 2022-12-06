@@ -25,26 +25,14 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    @foreach (var item in Model.Airlines)
-                    {
-                        <tr id="tr_@item.ID">
-                            <td>
-                                <input id="input_code_@item.ID" type="text" class="form-control" value="@item.Code" onblur="update('@item.ID')" tabindex="0" />
-                            <td>
-                                <input id="input_name_@item.ID" type="text" class="form-control" value="@item.AirlineName" onblur="update('@item.ID')" tabindex="0" />
-                            </td>
-                            <td>
-                                <input type="image" src="~/Images/Red_X.svg.png" height="20" width="20"onclick="DeleteRow('@item.ID')" />
-                            </td>
-                        </tr>
-                    }
+                    @Html.Partial("TBody", Model);
                 </tbody>
             </table>
         </div>
         <br />
 
         <div class="row-plus">
-            <input type="image" src="~/Images/istockphoto-691856112-170667a.jpg" height="70" width="70" value="Show Div" id="plusBtn" onclick="ShowDiv(this)" />
+            <input type="image" src="~/Images/istockphoto-691856112-170667a.jpg" height="70" width="70" value="Show Div" id="plusBtn" onclick="showDiv(this)" />
         </div>
         
 
@@ -52,7 +40,7 @@
             <div class="row">
                 <input class="form-control" id="inputCode" type="text" value="" placeholder="Code">
                 <input class="form-control" id="inputName" type="text" value="" placeholder="AirlineName">
-                <button id="buttons"onclick="SaveRow()">
+                <button id="buttons"onclick="saveRow()">
                     <img src="~/Images/saveicon.png" alt="Save" />
                 </button>
             </div>

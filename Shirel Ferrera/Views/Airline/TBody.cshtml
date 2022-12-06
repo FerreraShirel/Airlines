@@ -1,0 +1,15 @@
+﻿@model Shirel_Ferrera.Models.AirlinesModel
+
+@foreach (var item in Model.Airlines)
+{
+    <tr id="tr_@item.ID">
+        <td>
+            <input id="input_code_@item.ID" type="text" class="form-control" value="@item.Code" onblur="updateRow('@item.ID')" tabindex="0" />
+        <td>
+            <input id="input_name_@item.ID" type="text" class="form-control" value="@item.AirlineName" onblur="updateRow('@item.ID')" tabindex="0" />
+        </td>
+        <td>
+            <input type="image" src="~/Images/Red_X.svg.png" height="20" width="20" onclick="deleteRow('@item.ID')" />
+        </td>
+    </tr>
+}

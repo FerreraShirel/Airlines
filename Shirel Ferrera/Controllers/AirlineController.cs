@@ -38,14 +38,38 @@ namespace Shirel_Ferrera.Controllers
         }
         
         [HttpPost]
-        public string UpdateRow(string code, string airlineName,int id)
+        public ActionResult UpdateRow(string code, string airlineName,int id)
         {
-            AirlineViewModel model = new AirlineViewModel
+            AirlinesModel model;
+            try
             {
-                ID= id,
-                Code = code,
-                AirlineName = airlineName
-            };        
+                using (airlineEntities1 db = new airlineEntities1())
+                {
+                    Airlines airline = db.Airlines.FirstOrDefault(x => x.ID == id);
+                    if (airline != null)
+                    {
+                        airline.Code = code;
+                        airline.AirlineName = airlineName;
+
+                        db.SaveChanges();
+                    }
+                }
+                model = new AirlinesModel
+                {
+                    Airlines = GetData()
+                };
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return PartialView("TBody", model);
+        }
+
+        [HttpPost]
+        public ActionResult SaveRow(string code, string airlineName)
+        {
+            AirlinesModel model; 
             try
             {
                 using (airlineEntities1 db = new airlineEntities1())
@@ -55,52 +79,22 @@ namespace Shirel_Ferrera.Controllers
                         Code = code,
                         AirlineName = airlineName
                     };
-
-
-                    db.SaveChanges();
-                    temp.ID = model.ID;
-                }
-
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            return "true";
-        }
-        public JsonResult SaveRow(string code, string airlineName)
-        {
-            AirlineViewModel model;
-            try
-            {
-                using (airlineEntities1 db = new airlineEntities1()) 
-                {
-                    Airlines temp = new Airlines
-                    {
-                        Code = code,
-                        AirlineName = airlineName
-                    };
-
                     db.Airlines.Add(temp);
                     db.SaveChanges(); // מנפיק אי די חדש
-                    model = new AirlineViewModel
-                    {
-                        ID = temp.ID,
-                        Code = code,
-                        AirlineName = airlineName
-                    };
                 }
+
+                model = new AirlinesModel
+                {
+                    Airlines = GetData()
+                };
             }
             catch (Exception)
             {
-
                 throw;
-            }
-            return Json(model); //
+            }          
+            return PartialView("TBody", model); 
         }
-        
+
         private List<AirlineViewModel> GetData() //   
         {
             List<AirlineViewModel> result = new List<AirlineViewModel>();
@@ -118,6 +112,7 @@ namespace Shirel_Ferrera.Controllers
                         });
                     }
                 }
+                result = result.OrderByDescending(a => a.AirlineName.Length).ToList(); // 
             }
             catch (Exception)
             { 
